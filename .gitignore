@@ -139,5 +139,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
  #dependencies
- .idea/
+.idea/
 test*
+service*
