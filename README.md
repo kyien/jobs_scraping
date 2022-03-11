@@ -12,6 +12,6 @@
                     b) on MAC or Linux run   'source  venv/bin/activate'
             
 * Run `pip install -r requirements.txt`
-* Run `python3 main.py` to start the application
+* Run `python3 app.py` to start the application
 
 ### Docker Image -coming Soon
