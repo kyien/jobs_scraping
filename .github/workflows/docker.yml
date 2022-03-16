@@ -1,0 +1,43 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Jobs_Scraping_CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the dev branch
+  push:
+    branches: [ prod ]
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  python-build:
+    if: ${{ github.event_name == 'workflow_dispatch' }}       # Run only if triggered manually
+    runs-on: ubuntu-latest
+    container: python:3.8-alpine  # same as the one on the dockerfile
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+       # login to docker hub
+      - name: docker login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+
+      # Runs a set of commands using the runners shell
+      - name: Create env file
+        run: |
+          touch .env
+          echo HEADERS="https://xxx.execute-api.us-west-2.amazonaws.com" >> .env
+          echo API_KEY=${{ secrets.PASSWORD }} >> .env
+          cat .env
+#       - name: docker build job_scrapy_app
+#         env: 
+#           HEADERS: $ {{secrets.HEADERS}}
+#           PROXY: ${{secrets.PROXY}}
+#         run: |
+#           docker build -t jobs_scraping/python38:v1.0.0 .
