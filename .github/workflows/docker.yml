@@ -35,7 +35,7 @@ jobs:
           
       - name: docker build job_scrapy_app
         run: |
-          docker build -t kyien_jobs_scraping/python38:v1.0.0 .
+          docker build -t kyien/job_scraping:v1.0.0 .
           
         # login to docker hub
       - name: docker login
@@ -46,7 +46,7 @@ jobs:
 
       - name: docker push to github repo
         run: |
-          docker push kyien_jobs_scraping/python38:v1.0.0
+          docker push kyien/job_scraping:v1.0.0 
     
     
       
