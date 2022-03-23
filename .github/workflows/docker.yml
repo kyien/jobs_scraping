@@ -15,7 +15,7 @@ jobs:
   python-build:
 #     if: ${{ github.event_name == 'workflow_dispatch' }}       # Run only if triggered manually
     runs-on: ubuntu-latest
-    container: python:3.8-alpine  # same as the one on the dockerfile
+#     container: python:3.8-alpine  # same as the one on the dockerfile
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
