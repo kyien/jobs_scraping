@@ -13,20 +13,13 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   python-build:
-#     if: ${{ github.event_name == 'workflow_dispatch' }}       # Run only if triggered manually
+    if: ${{ github.event_name == 'workflow_dispatch' }}       # Run only if triggered manually
     runs-on: ubuntu-latest
     container: python:3.8-alpine  # same as the one on the dockerfile
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-       # login to docker hub
-      - name: docker login
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASS }}
 
       # Runs a set of commands using the runners shell
       - name: Create env file
@@ -42,7 +35,13 @@ jobs:
       - name: docker build job_scrapy_app
         run: |
           docker build -t kyien_jobs_scraping/python38:v1.0.0 .
-
+          
+        # login to docker hub
+      - name: docker login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
 
       - name: docker push to github repo
         run: |
