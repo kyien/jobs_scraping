@@ -26,18 +26,28 @@ jobs:
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASS }}
+          password: ${{ secrets.DOCKER_PASS }
 
       # Runs a set of commands using the runners shell
       - name: Create env file
         run: |
           touch .env
-          echo HEADERS="https://xxx.execute-api.us-west-2.amazonaws.com" >> .env
-          echo API_KEY=${{ secrets.PASSWORD }} >> .env
+          echo HEADERS=${{secrets.HEADERS}} >> .env
+          echo PASSWORD=${{ secrets.PASSWORD }} >> .env
+          echo PROXY=${{ secrets.PROXY }} >> .env
+          echo RECEIVER_EMAIL=${{ secrets.RECEIVER_EMAIL }} >> .env
+          echo SENDER_EMAIL=${{ secrets.SENDER_EMAIL }} >> .env
           cat .env
-#       - name: docker build job_scrapy_app
-#         env: 
-#           HEADERS: $ {{secrets.HEADERS}}
-#           PROXY: ${{secrets.PROXY}}
-#         run: |
-#           docker build -t jobs_scraping/python38:v1.0.0 .
+          
+      - name: docker build job_scrapy_app
+        run: |
+          docker build -t kyien_jobs_scraping/python38:v1.0.0 .
+
+
+      - name: docker push to github repo
+        run: |
+          docker push kyien_jobs_scraping/python38:v1.0.0
+    
+    
+      
+    
