@@ -41,9 +41,9 @@ jobs:
       - name: Set up Docker Buildx        
         uses: docker/setup-buildx-action@v1  
         
-      - name: docker build job_scrapy_app
-        run: |
-          docker buildx build -t  --platform=linux/arm64,linux/amd64 kyien/job_scraping:v1.0.0 .
+#       - name: docker build job_scrapy_app
+#         run: |
+#           docker buildx build -t  --platform=linux/arm64,linux/amd64 kyien/job_scraping:v1.0.0 .
           
         # login to docker hub
       - name: docker login
