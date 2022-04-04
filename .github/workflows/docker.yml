@@ -35,7 +35,7 @@ jobs:
           
       - name: docker build job_scrapy_app
         run: |
-          docker buildx use default
+    
           docker buildx build --platform linux/arm64 -t kyien/job_scraping:v1.0.0 .
           
         # login to docker hub
