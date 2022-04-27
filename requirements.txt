@@ -21,3 +21,4 @@ soupsieve==2.3.1
 stack-data==0.2.0
 traitlets==5.1.1
 wcwidth==0.2.5
+requests
