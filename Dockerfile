@@ -11,7 +11,7 @@ RUN rm -rf /var/cache/apk/* && \
     
 
 RUN apk update  && \
- apk add --no-cache python3-dev gcc libc-dev g++ postgresql-dev cargo libffi-dev musl-dev zlib-dev jpeg-dev && \
+ apk add --no-cache python3-dev gcc libc-dev libstdc++ g++ postgresql-dev cargo libffi-dev musl-dev zlib-dev jpeg-dev && \
  rm -rf /var/cache/apk/*  && \
  pip wheel -r requirements.txt --wheel-dir=/svc/wheels
 
