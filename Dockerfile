@@ -25,7 +25,7 @@ FROM python:3.8-alpine
 COPY --from=base /svc /svc
 
 WORKDIR /svc
-RUN pip install --no-index --find-links=/svc/wheels -r requirements.txt 
+RUN pip install --no-index --no-build-isolation --find-links=/svc/wheels -r requirements.txt 
 
 RUN mkdir /usr/src/app
 
