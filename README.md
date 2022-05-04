@@ -16,4 +16,6 @@
 
 ### Docker Image 
 * The image is hosted on docker hub:
-    'docker pull kyien/job_scraping:dev'
+                 a)  'docker pull kyien/job_scraping:dev'
+                 b) on your host run 'docker run -it kyien/job_scraping:dev'
+   
