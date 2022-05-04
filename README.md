@@ -14,4 +14,6 @@
 * Run `pip install -r requirements.txt`
 * Run `python3 app.py` to start the application
 
-### Docker Image -coming Soon
+### Docker Image 
+* The image is hosted on docker hub:
+    'docker pull kyien/job_scraping:dev'
