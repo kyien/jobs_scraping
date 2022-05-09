@@ -1,26 +1,26 @@
 
 # Stage 1 - Install build dependencies
-FROM python:3.8-alpine AS base
+FROM python:3.8-slim AS base
 RUN mkdir /svc
 WORKDIR /svc
 # RUN python -m venv .venv && .venv/bin/pip install --no-cache-dir -U pip setuptools wheel
 COPY requirements.txt .
 
-RUN rm -rf /var/cache/apk/* && \
-    rm -rf /tmp/*
+# RUN rm -rf /var/cache/apk/* && \
+RUN   rm -rf /tmp/*
     
 
-RUN apk update  && \
- apk add --no-cache python3-dev gcc libc-dev libstdc++ g++ postgresql-dev cargo libffi-dev musl-dev zlib-dev jpeg-dev && \
- rm -rf /var/cache/apk/*  && \
+RUN apt-get update  && \
+ apt-get install -y  python3-dev gcc libc-dev libstdc++ g++ postgresql-dev cargo libffi-dev musl-dev zlib-dev jpeg-dev && \
+#  rm -rf /var/cache/apk/*  && \
+#  apt-get clean && \
+ echo 'DPkg::Post-Invoke {"/bin/rm -f /var/cache/apt/archives/*.deb || true";};' | sudo tee /etc/apt/apt.conf.d/clean && \
+
  pip wheel  -r requirements.txt --wheel-dir=/svc/wheels
 
 # Stage 2 - Copy only necessary files to the runner stage
-FROM python:3.8-alpine
+FROM python:3.8-slim
 
-# RUN apk add --no-cache \
-#     jpeg-dev zlib-dev \
-#     libmagic
 
 COPY --from=base /svc /svc
 
