@@ -13,7 +13,7 @@ RUN rm -rf /var/cache/apk/* && \
 RUN apk update  && \
  apk add --no-cache python3-dev gcc libc-dev libstdc++ g++ postgresql-dev cargo libffi-dev musl-dev zlib-dev jpeg-dev && \
  rm -rf /var/cache/apk/*  && \
- pip wheel -r requirements.txt --wheel-dir=/svc/wheels
+ pip wheel --no-build-isolation -r requirements.txt --wheel-dir=/svc/wheels
 
 # Stage 2 - Copy only necessary files to the runner stage
 FROM python:3.8-alpine
@@ -25,7 +25,7 @@ FROM python:3.8-alpine
 COPY --from=base /svc /svc
 
 WORKDIR /svc
-RUN pip install --no-index --no-build-isolation --find-links=/svc/wheels -r requirements.txt 
+RUN pip install --no-index  --find-links=/svc/wheels -r requirements.txt 
 
 RUN mkdir /usr/src/app
 
