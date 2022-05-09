@@ -12,7 +12,7 @@ RUN   rm -rf /tmp/*
 
 RUN apt-get update  && \
 #  apk add --no-cache  python3-dev gcc libc-dev libstdc++ g++ postgresql-dev cargo libffi-dev musl-dev zlib-dev jpeg-dev && \
-  apt-get install -y  python3-dev gcc libc-dev libstdc++ g++ postgresql-server-dev-all cargo libffi-dev musl-dev zlib1g-dev libjpeg-dev && \
+  apt-get install -y  python3-dev gcc libc-dev libstdc++6 g++ postgresql-server-dev-all cargo libffi-dev musl-dev zlib1g-dev libjpeg-dev && \
 
 #  rm -rf /var/cache/apk/*  && \
 #  apt-get clean && \
