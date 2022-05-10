@@ -6,17 +6,19 @@ WORKDIR /svc
 # RUN python -m venv .venv && .venv/bin/pip install --no-cache-dir -U pip setuptools wheel
 COPY requirements.txt .
 
-# RUN rm -rf /var/cache/apk/* && \
+# RUN rm -rf /var/cache/apk/*
+
 RUN   rm -rf /tmp/*
-    
 
+# apk add --no-cache  python3-dev gcc libc-dev libstdc++ g++ postgresql-dev cargo libffi-dev musl-dev zlib-dev jpeg-dev 
+
+#  rm -rf /var/cache/apk/*  
+#  apt-get clean 
 RUN apt-get update  && \
-#  apk add --no-cache  python3-dev gcc libc-dev libstdc++ g++ postgresql-dev cargo libffi-dev musl-dev zlib-dev jpeg-dev && \
-  apt-get install -y  python3-dev gcc libc-dev libstdc++6 g++ postgresql-server-dev-all cargo libffi-dev musl-dev zlib1g-dev libjpeg-dev && \
+apt-get install -y  python3-dev gcc libc-dev libstdc++6 g++ postgresql-server-dev-all cargo libffi-dev musl-dev zlib1g-dev libjpeg-dev && \
 
-#  rm -rf /var/cache/apk/*  && \
-#  apt-get clean && \
- echo 'DPkg::Post-Invoke {"/bin/rm -f /var/cache/apt/archives/*.deb || true";};' | sudo tee /etc/apt/apt.conf.d/clean && \
+
+echo 'DPkg::Post-Invoke {"/bin/rm -f /var/cache/apt/archives/*.deb || true";};' | sudo tee /etc/apt/apt.conf.d/clean && \
 
  pip wheel  -r requirements.txt --wheel-dir=/svc/wheels
 
